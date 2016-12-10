@@ -14,7 +14,10 @@ class LL(object):
             cur = cur.next
         cur.next = Node(value)
 <<<<<<< HEAD
+<<<<<<< HEAD
         return self
+=======
+>>>>>>> bd10d5264e9de2d1d758a7bf760da41ef8e4caed
 =======
 >>>>>>> bd10d5264e9de2d1d758a7bf760da41ef8e4caed
 
@@ -23,7 +26,10 @@ class LL(object):
         new.next = self.next
         self.next = new
 <<<<<<< HEAD
+<<<<<<< HEAD
         return self
+=======
+>>>>>>> bd10d5264e9de2d1d758a7bf760da41ef8e4caed
 =======
 >>>>>>> bd10d5264e9de2d1d758a7bf760da41ef8e4caed
 
@@ -35,6 +41,7 @@ class LL(object):
 
     def __str__(self):
 <<<<<<< HEAD
+<<<<<<< HEAD
         return str(list(self))
 
     # 2.1
@@ -45,6 +52,8 @@ class LL(object):
             if cur.value == temp.value:
                 
 =======
+=======
+>>>>>>> bd10d5264e9de2d1d758a7bf760da41ef8e4caed
         # out = ""
         # cur = self
         # while cur.next != None:
@@ -52,4 +61,7 @@ class LL(object):
         #     out += str(cur.value) + " "
         # return out
         return str(list(self))
+<<<<<<< HEAD
+>>>>>>> bd10d5264e9de2d1d758a7bf760da41ef8e4caed
+=======
 >>>>>>> bd10d5264e9de2d1d758a7bf760da41ef8e4caed
