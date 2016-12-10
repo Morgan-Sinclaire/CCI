@@ -31,16 +31,8 @@ class LL(object):
         return str(list(self))
 
     # 2.1
-    def remove_dups(self):
-        cur = self.next
-        temp = self.next.next
-        while temp != None:
-            if cur.value == temp.value:
-
-        # out = ""
-        # cur = self
-        # while cur.next != None:
-        #     cur = cur.next
-        #     out += str(cur.value) + " "
-        # return out
-        return str(list(self))
+    # def remove_dups(self):
+    #     cur = self.next
+    #     temp = self.next.next
+    #     while temp != None:
+    #         if cur.value == temp.value:
