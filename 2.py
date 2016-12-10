@@ -13,25 +13,13 @@ class LL(object):
         while cur.next != None:
             cur = cur.next
         cur.next = Node(value)
-<<<<<<< HEAD
-<<<<<<< HEAD
         return self
-=======
->>>>>>> bd10d5264e9de2d1d758a7bf760da41ef8e4caed
-=======
->>>>>>> bd10d5264e9de2d1d758a7bf760da41ef8e4caed
 
     def insert(self, value):
         new = Node(value)
         new.next = self.next
         self.next = new
-<<<<<<< HEAD
-<<<<<<< HEAD
         return self
-=======
->>>>>>> bd10d5264e9de2d1d758a7bf760da41ef8e4caed
-=======
->>>>>>> bd10d5264e9de2d1d758a7bf760da41ef8e4caed
 
     def __iter__(self):
         cur = self
@@ -40,8 +28,6 @@ class LL(object):
             yield cur.value
 
     def __str__(self):
-<<<<<<< HEAD
-<<<<<<< HEAD
         return str(list(self))
 
     # 2.1
@@ -50,10 +36,7 @@ class LL(object):
         temp = self.next.next
         while temp != None:
             if cur.value == temp.value:
-                
-=======
-=======
->>>>>>> bd10d5264e9de2d1d758a7bf760da41ef8e4caed
+
         # out = ""
         # cur = self
         # while cur.next != None:
@@ -61,7 +44,3 @@ class LL(object):
         #     out += str(cur.value) + " "
         # return out
         return str(list(self))
-<<<<<<< HEAD
->>>>>>> bd10d5264e9de2d1d758a7bf760da41ef8e4caed
-=======
->>>>>>> bd10d5264e9de2d1d758a7bf760da41ef8e4caed
