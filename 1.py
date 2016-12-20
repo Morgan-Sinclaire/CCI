@@ -20,3 +20,15 @@ def URLify(s, n):
     s = s[:end+1]
     s = s.replace(' ', '%20')
     return s
+
+# 1.4
+def permpal(s):
+    t = set(s)
+    n = 0
+    for c in t:
+        if s.count(c) % 2 == 1:
+            n += 1
+    return n <= 1
+
+print permpal("tacocat")
+print permpal("permpal")
