@@ -1,10 +1,31 @@
+# 16.1
+# I have no idea what this is asking :(
 
+# 16.2
+# we assume the book is given as a string, so we can just use count
+# if this were run multiple times for different words, we could just use
+# collections.Counter (I recognize splitting on whitespace isn't perfect,
+# but it would be hard to cover commas, periods, etc. comprehensively)
+def freq(word, book):
+    c = book.count(word)
+    text = book.split()
+    return float(c/len(text))
 
+# 16.3
+# we assume the lines are of the form ((x1, y1), (x2, y2)) and do algebra
+def intersect(a,b):
+    m1 = float(a[1][1] - a[0][1]) / (a[1][0] - a[0][0])
+    m2 = float(b[1][1] - b[0][1]) / (b[1][0] - b[0][0])
 
+    if m1 == m2:
+        return "No intersection: lines are parallel"
 
+    x = (b[0][1] - a[0][1] + m1*a[0][0] - m2*b[0][0]) / (m1 - m2)
 
-
-
+    if x >= a[0][0] and x >= b[0][0] and x <= a[1][0] and x <= b[1][0]:
+        return (x, m1*(x - a[0][0]) + a[0][1])
+    else:
+        return "No intersection"
 
 # 16.4
 # assume a 3x3 numpy array with 1 for X, 2 for O, 0 for blank
