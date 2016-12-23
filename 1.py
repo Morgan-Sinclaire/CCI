@@ -90,3 +90,16 @@ def compress(s):
         return compr
     else:
         return s
+
+# 1.7
+# for each entry in the upper left quadrant, swaps it with the 3 corresponding entries
+# could have also transposed and reflected but I thought of this first
+import numpy as np
+def rotate(A):
+    n = A.shape[0]
+    for i in range((n+1) / 2):
+        for j in range(n / 2):
+            w,x,y,z = A[i,j], A[j,n-i-1], A[n-i-1,n-j-1], A[n-j-1,i]
+            A[i,j], A[j,n-i-1], A[n-i-1,n-j-1], A[n-j-1,i] = z,w,x,y
+
+    return A
