@@ -47,5 +47,46 @@ def permpal(s):
 
     return sum([i % 2 for i in lengths]) <= 1
 
-print permpal("tacocat")
-print permpal("permpal")
+# 1.5
+# tests the cases of replacements separately from insertions/deletions
+def one_away(a,b):
+    d = len(a) - len(b)
+    if d < 0:
+        a,b = b,a
+
+    if d == 0:
+        count = 0
+        for i in range(len(a)):
+            if a[i] != b[i]:
+                count += 1
+        return count <= 1
+
+    elif d == 1:
+        for i in range(len(a)):
+            if b == a[:i] + a[i+1:]:
+                return True
+        return False
+
+    else:
+        return False
+
+# 1.6
+# reused the for-loop from my second solution of 1.4
+def compress(s):
+    lengths = []
+    count = 1
+
+    for i in range(len(s) - 1):
+        if s[i] != s[i+1]:
+            lengths.append(s[i] + str(count))
+            count = 1
+        else:
+            count += 1
+    lengths.append(s[-1] + str(count))
+
+    compr = "".join(lengths)
+
+    if len(compr) < len(s):
+        return compr
+    else:
+        return s
