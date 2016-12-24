@@ -103,3 +103,31 @@ def rotate(A):
             A[i,j], A[j,n-i-1], A[n-i-1,n-j-1], A[n-j-1,i] = z,w,x,y
 
     return A
+
+# 1.8
+def set_zero(A):
+    m,n = A.shape
+    rows,cols = [],[]
+    for i in range(m):
+        for j in range(n):
+            if A[i,j] == 0:
+                rows.append(i)
+                cols.append(j)
+
+    for i in rows:
+        A[i] = np.zeros(n)
+    for j in cols:
+        A[:,j] = np.zeros(m)
+
+    return A
+
+# 1.9
+# can't think of a way to use isSubstring effectively, but this just seemed
+# like the way I'd do it
+def is_rotation(s1,s2):
+    if len(s1 != len(s2)):
+        return False
+    for i in range(len(s1)):
+        if s1 == s2[-i:] + s2[:-i]:
+            return True
+    return False
