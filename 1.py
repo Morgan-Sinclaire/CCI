@@ -1,15 +1,20 @@
-
-
-
-
-
-
-
 # 1.1
-# sort the list, then go through it, taking O(nlogn) time
+# with sets, O(n) is easy
+def is_unique(s):
+    return list(s) == list(set(s))
+
+# without sets or anything else, sort the list and go through it in O(nlogn)
+def is_unique(s):
+    s = sorted(s)
+    for i in range(len(s) - 1):
+        if s[i] == s[i+1]:
+            return False
+    return True
 
 # 1.2
-# sort both lists, check for equality
+# sort both lists and check for equality in O(nlogn + mlogm)
+def is_perm(a,b):
+    return sorted(a) == sorted(b)
 
 # 1.3
 def URLify(s, n):
@@ -123,7 +128,7 @@ def set_zero(A):
 
 # 1.9
 # can't think of a way to use isSubstring effectively, but this just seemed
-# like the way I'd do it
+# like the way I'd do it, running in O(n) where n is the length of each string
 def is_rotation(s1,s2):
     if len(s1 != len(s2)):
         return False
