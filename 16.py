@@ -91,6 +91,8 @@ def bigger(a,b):
     return (a,b)[str(a-b)[0] in ['-']]
 
 # 16.8
+# I don't think there's an elegant way to do this; to be accurate, we would have to
+# hard code in words like this: https://en.wikipedia.org/wiki/Names_of_large_numbers
 
 # 16.9
 # not sure if "+= -1" is cheating, but not sure how else to do subtraction
@@ -112,4 +114,16 @@ def divide(a,b):
         a = subtract(a,b)
     return q
 
-print divide(53970,571)
+# 16.10
+# if the current year never grows, runs in O(n), where n is the number of people
+def alive(people):
+    y = 1900
+    m = 0
+    for i in xrange(1900,2017):
+        n = 0
+        for p in people:
+            if i >= p[0] and i <= p[1]:
+                n += 1
+        if n > m:
+            y,m = i,n
+    return y
