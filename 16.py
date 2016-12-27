@@ -49,6 +49,22 @@ def ttt_win(m):
 def trailing(n):
     return n / 5
 
+# just kidding! that last solution fails for n >= 25, but this generalizes
+def trailing(n):
+    count = 0
+    p = 1
+    while n / (5**p):
+        count += n / (5**p)
+        p += 1
+    return count
+
+# this is the simplest solution I could come up with
+def trailing(n):
+    if n / 5:
+        return n / 5 + trailing(n / 5)
+    else:
+        return 0
+
 # 16.6
 # sorts each list, then simply compares the closest values in each list
 # runs in O(mlogm + nlogn + m + n) = O(mlogm + nlogn)
@@ -67,9 +83,33 @@ def min_dif(a,b):
             return 0
     return m
 
-print(min_dif([1,3,15,11,2], [23,127,235,19,8]))
+# print(min_dif([1,3,15,11,2], [23,127,235,19,8]))
 
 # 16.7
 # this problem is dumb and hilarious
 def bigger(a,b):
     return (a,b)[str(a-b)[0] in ['-']]
+
+# 16.8
+
+# 16.9
+# not sure if "+= -1" is cheating, but not sure how else to do subtraction
+def multiply(a,b):
+    p = 0
+    for i in range(b):
+        p += a
+    return p
+
+def subtract(a,b):
+    for i in range(b):
+        a += -1
+    return a
+
+def divide(a,b):
+    q = 0
+    while a > b:
+        q += 1
+        a = subtract(a,b)
+    return q
+
+print divide(53970,571)
