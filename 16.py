@@ -127,3 +127,20 @@ def alive(people):
         if n > m:
             y,m = i,n
     return y
+
+# 16.11
+# straightforward
+def length(shorter, longer, k):
+    return range(shorter*k, longer*k, longer - shorter) + [longer*k]
+
+# 16.12
+
+
+# 16.13
+# assumes a square is given as ((x,y), l), the center coordinates and side length
+# note we just need the centers, since any line through there bisects the square
+def split(s1, s2):
+    m = float(s2[0][1] - s1[0][1]) / (s2[0][0] - s1[0][0])
+    return "y = {:.2f}(x - {}) + {}".format(m, s1[0][0], s1[0][1])
+
+# print split(((-2,4), 3), ((4,9), 5))
