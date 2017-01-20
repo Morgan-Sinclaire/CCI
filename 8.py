@@ -1,4 +1,38 @@
 import numpy as np
+import sys
+
+# recursion warm-up
+def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n - 1)
+
+# my first memoized function, shamelessly taken from the chapter
+def fib(n, memo=[]):
+    if memo == []:
+        memo=[0]*(n+1)
+
+    if n == 0 or n == 1:
+        return n
+    elif memo[n] == 0:
+        memo[n] = fib(n-1, memo) + fib(n-2, memo)
+
+    return memo[n]
+
+# sys.setrecursionlimit(1000000)
+# print fib(10000)
+
+# 8.1
+def stair(n):
+    if n in [1,2]:
+        return n
+    elif n == 3:
+        return 4
+    else:
+        return stair(n-1) + stair(n-2) + stair(n-3)
+
+# print stair(4)
 
 # 8.2
 # assumes grid is a numpy array of 0's and 1's, with 1's being forbidden cells
@@ -49,6 +83,37 @@ def grid_path(m):
 # print grid(m)
 # print grid_path(m)
 
+# 8.3
+# iterative O(n) solution
+def magic(a):
+    for i in xrange(len(a)):
+        if a[i] == i:
+            return i
+    return False
+
+# O(log n) solution, assuming ascending distinct values
+def magic(a, index=0):
+    mid = len(a) / 2
+    split = a[mid]
+    if split == mid + index:
+        return split
+    elif len(a) == 1:
+        return False
+    elif split > mid + index:
+        return magic(a[:mid], index)
+    elif split < mid + index:
+        index += mid+1
+        return magic(a[mid+1:], index)
+
+print magic([-1,0,1,3,6])
+print magic([-1,0,1,4,6])
+
+# O(log n) solution, assuming ascending but possibly repeated values
+def magic2(a):
+    return magic(list(set(a)))
+
+print magic([0,0,1,4,6])
+
 # 8.4
 def power(s):
     if len(s) == 1:
@@ -63,6 +128,15 @@ def power(s):
 # print power(set([1,2]))
 # print power(set([1,2,3]))
 
+# 8.5
+def mult(a,b):
+    if a == 0 or b == 0:
+        return 0
+    else:
+        return a + mult(a, b-1)
+
+# print mult(3,5)
+
 # 8.6
 # uses that (6 - start - end) yields the extra peg, assuming they're labeled (1,2,3)
 def tower(n, start=1, end=3):
@@ -72,6 +146,21 @@ def tower(n, start=1, end=3):
         return tower(n-1, start, 6-start-end) + \
                [(start,end)] + \
                tower(n-1, 6-start-end, end)
+
+# 8.7
+def perm(s):
+    if len(s) == 1:
+        return [s]
+    else:
+        f = s[0]
+        l = []
+        for p in perm(s[1:]):
+            for i in xrange(len(p) + 1):
+                l.append(p[:i] + f + p[i:])
+        return l
+
+# print perm("ab")
+# print perm("abc")
 
 # 8.8
 def perm(s):
