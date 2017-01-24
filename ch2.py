@@ -34,12 +34,12 @@ class LL(object):
     def __str__(self):
         return str(list(self))
 
-ll = LL()
-ll.insert(1)
-ll.insert(2)
-ll.insert(3)
-ll.insert_list(range(10))
-print ll
+# ll = LL()
+# ll.insert(1)
+# ll.insert(2)
+# ll.insert(3)
+# ll.insert_list(range(10))
+# print ll
 
     # 2.1
     # def remove_dups(self):

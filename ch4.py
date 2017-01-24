@@ -1,10 +1,8 @@
-# from 2 import Node,LL
-#
-from stuff import Node,LL
+from ch2 import Node,LL
 
-ll = LL()
-ll.insert(5)
-print ll
+# ll = LL()
+# ll.insert(5)
+# print ll
 
 class binary_tree(object):
     def __init__(self, value=None, left=None, right=None):
@@ -12,10 +10,10 @@ class binary_tree(object):
         self.left = left
         self.right = right
 
-    def stuff(self):
-        if self.value != None:
-            print self.value
-            self.left.stuff()
+    # def stuff(self):
+    #     if self.value != None:
+    #         print self.value
+    #         self.left.stuff()
             # stuff(self.right)
 
     # def stuff(self, l=[]):
@@ -24,8 +22,9 @@ class binary_tree(object):
     #         stuff(self.left, l)
     #         stuff(self.right, l)
 
-# t = binary_tree(4, None, None)
-# t.stuff()
+t = binary_tree(4, None, None)
+print str(type(t))
+print str(type(t)) == "<type 'list'>"
 
 
 # 4.2
@@ -46,10 +45,36 @@ def minimal(a):
     return t
 
 # 4.3
-def linked(t, list=False):
-    ll = LL()
+def linked(t):
+    l = []
+    while t != None:
+        l.append(linked_layer(t))
+
+def linked_layer(t, depth=0, l=[]):
+    if t == None:
+        return
+    if str(type(t)) != "<type 'list'>":
+        t = [t]
+    sub = []
+    for i in t:
+        sub.append(t.value)
+    l.append(sub)
 
 
+# def linked(t, depth=0, l=[]):
+#     if t != None:
+#         l.append([t.value])
+#         l.append(linked(t.left) + linked(t.right))
+#         return l
+
+def linked(t):
+    tag(t)
+
+def tag(t, depth=0):
+    if t != None:
+        t.value = (t.value, depth)
+        tag(t.left, depth+1)
+        tag(t.right, depth+1)
 
 
 # 4.4
@@ -73,15 +98,15 @@ def balanced(t):
 # print max_depth(t)
 
 # 4.5
-def validate(t, lower=[], upper=[]):
+def validate(t, lower=None, upper=None):
     if t != None:
-        if lower != [] and t.value < lower:
+        if lower != None and t.value < lower:
             return False
-        if upper != [] and t.value > upper:
+        if upper != None and t.value > upper:
             return False
         return validate(t.left, lower, t.value) \
            and validate(t.right, t.value, upper)
     return True
 
-# t = binary_tree(5, binary_tree(3), binary_tree(6))
+# t = binary_tree(5, binary_tree(8), binary_tree(6))
 # print validate(t)
