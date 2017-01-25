@@ -167,3 +167,27 @@ def search_listy(a, n):
     size = find_end(a)
     # we can now effectively treat listy as an actual list
     return binary_search(a,n)
+
+# 10.5
+# binary search, except having to find a non-empty string at each pivot
+# averages O((n/k)*log(n)) time, where n is the total length
+# and k is the number of non-empty strings
+def sparse_search(a, n):
+    mid = len(a) / 2
+    if a[mid] == "":
+        i = mid
+        while i != len(a) and a[i] == "":
+            i += 1
+
+        if i == len(a):
+            return sparse_search(a[:mid], n)
+
+        mid = i
+
+    # since python > and < are reverse alphabetical for strings
+    if a[mid] == n:
+        return mid
+    if a[mid] < n:
+        return sparse_search(a[:mid], n)
+    if a[mid] > n:
+        return mid + 1 + sparse_search(a[mid + 1:], n)
