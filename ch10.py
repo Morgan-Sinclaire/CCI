@@ -96,3 +96,21 @@ def worst_sort(a):
 a = [170, 45, 75, 90, 802, 2, 24, 66]
 # print select_sort(a)
 # print merge_sort(a)
+
+# 10.1
+# already implemented this above
+def sorted_merge(left, right):
+    return merge(left, right)
+
+# 10.2
+def sort_anagrams(a):
+    b = [''.join(sorted(x)) for x in a]
+    b = [(b[i], i) for i in xrange(len(b))]
+    b = sorted(b, key=lambda x: x[0])
+    b = [(b[i][1], i) for i in xrange(len(b))]
+
+    c = []
+    for pair in b:
+        c.append(a[pair[0]])
+
+    return c
