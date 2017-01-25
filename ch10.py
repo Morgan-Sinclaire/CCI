@@ -97,6 +97,18 @@ a = [170, 45, 75, 90, 802, 2, 24, 66]
 # print select_sort(a)
 # print merge_sort(a)
 
+# searches for a number n in a sorted list a
+def binary_search(a, n):
+    mid = len(a) / 2
+    if a[mid] == n:
+        return mid
+    if a[mid] > n:
+        return binary_search(a[:mid], n)
+    if a[mid] < n:
+        return mid + 1 + binary_search(a[mid + 1:], n)
+
+# print binary_search(sorted(a), 170)
+
 # 10.1
 # already implemented this above
 def sorted_merge(left, right):
@@ -114,3 +126,44 @@ def sort_anagrams(a):
         c.append(a[pair[0]])
 
     return c
+
+# 10.3
+# finds the index where the lowest number is in O(log(n))
+def find_rotation_point(a):
+    l = len(a)
+    if l == 2:
+        return a[0] < a[1]
+    lower = a[0]
+    upper = a[l/2]
+    if upper < lower:
+        return find_rotation_point(a[l/2 + 1])
+    if upper > lower:
+        return l/2 + find_rotation_point(a[l/2:])
+
+# splits the list into the two sorted lists
+def rotated_search(a, n):
+    r = find_rotation_point(a)
+    if a[-1] == n:
+        return len(a) - 1
+    if a[-1] < n:
+        return binary_search(a[:r], n)
+    if a[-1] > n:
+        return r + binary_search(a[r:], n)
+
+# 10.4
+# finds the last index of listy, runs in O((log(n))^2) time
+def find_end(a, l=0):
+    i = 1
+    x = a[i-1]
+    if x == -1:
+        return l
+    while x != -1:
+        i *= 2
+        x = a[i-1]
+    l += i
+    return find_end(a[i/2], l)
+
+def search_listy(a, n):
+    size = find_end(a)
+    # we can now effectively treat listy as an actual list
+    return binary_search(a,n)
