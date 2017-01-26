@@ -4,27 +4,41 @@ from ch2 import Node,LL
 # ll.insert(5)
 # print ll
 
-class binary_tree(object):
+class BinaryTree(object):
     def __init__(self, value=None, left=None, right=None):
         self.value = value
         self.left = left
         self.right = right
 
-    # def stuff(self):
-    #     if self.value != None:
-    #         print self.value
-    #         self.left.stuff()
-            # stuff(self.right)
+    def insert(self, n):
+        if self.value == None:
+            self.value = n
+        elif n <= self.value:
+            if self.left == None:
+                self.left = BinaryTree(n)
+            else:
+                self.left.insert(n)
+        elif n > self.value:
+            if self.right == None:
+                self.right = BinaryTree(n)
+            else:
+                self.right.insert(n)
 
-    # def stuff(self, l=[]):
-    #     while self.value != None:
-    #         l.append(self.value)
-    #         stuff(self.left, l)
-    #         stuff(self.right, l)
+    def find(self, n):
+        if self.value == n:
+            return True
+        elif n < self.value:
+            if self.left == None:
+                return False
+            return self.left.find(n)
+        elif n > self.value:
+            if self.right == None:
+                return False
+            return self.right.find(n)
 
-t = binary_tree(4, None, None)
-print str(type(t))
-print str(type(t)) == "<type 'list'>"
+
+
+t = BinaryTree(4, None, None)
 
 
 # 4.2
