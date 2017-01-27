@@ -131,6 +131,18 @@ class LL(object):
             ll.insert(s.pop())
         return ll
 
+    def remove_dups(ll):
+        cur = ll.head.next
+        while cur != None:
+            temp = ll.head
+            while temp is not cur:
+                if temp.value == cur.value:
+                    temp.value = temp.next.value
+                    temp.next = temp.next.next
+                temp = temp.next
+            cur = cur.next
+
+
     # 2.2
     def kth_last(ll):
         s = size(ll):
@@ -142,15 +154,9 @@ class LL(object):
         return cur.value
 
     # 2.3
-    def delete_n(ll, n):
-        cur = ll.head
-        if cur.value == n:
-            ll.head = cur.next
-            return ll
-        while cur.next.value != n:
-            cur = cur.next
-        cur.next = cur.next.next
-        return ll
+    def delete_middle(node):
+        node.value = node.next.value
+        node.next = node.next.next
 
     # 2.4
     def partition(ll, n):
