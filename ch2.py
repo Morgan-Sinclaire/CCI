@@ -141,6 +141,7 @@ class LL(object):
                     temp.next = temp.next.next
                 temp = temp.next
             cur = cur.next
+        return(ll)
 
 
     # 2.2
@@ -227,16 +228,13 @@ def intersection(left, right):
 
 # 2.8
 def loop(ll):
-    cur = ll.head
-    count = 0
-    while cur.next != None:
-        temp = ll.head
-        i = 0
-        while i < count:
-            if temp is cur:
-                return True
-            temp = temp.next
-            i += 1
-        cur = cur.next
-        count += 1
+    slow = ll.head
+    if slow.next is None:
+        return False
+    fast = ll.head.next
+    while fast.next is not None:
+        if slow is fast:
+            return True
+        slow = slow.next
+        fast = fast.next.next
     return False
