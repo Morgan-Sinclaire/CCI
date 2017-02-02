@@ -1,5 +1,11 @@
 # 16.1
 # I have no idea what this is asking :(
+def swap(n):
+    if n / 10 == 0:
+        return n
+    else:
+        return int(str(n % 10) + str(swap(n / 10)))
+
 
 # 16.2
 # we assume the book is given as a string, so we can just use count
