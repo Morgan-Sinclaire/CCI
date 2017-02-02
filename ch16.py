@@ -1,5 +1,5 @@
 # 16.1
-# I have no idea what this is asking :(
+# I assume this is asking to reverse the digits of the number
 def swap(n):
     if n / 10 == 0:
         return n
