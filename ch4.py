@@ -36,9 +36,64 @@ class BinaryTree(object):
                 return False
             return self.right.find(n)
 
-
-
 t = BinaryTree(4, None, None)
+
+class Operation(object):
+    def __init__(self, o):
+        self.o = o
+
+    def operate(self, left, right):
+        if self.o == '+':
+            return left + right
+        if self.o == '-':
+            return left - right
+        if self.o == '*':
+            return left * right
+
+# class Plus(Operation)
+#     def operate(self, left, right):
+#         return left + right
+
+# class Minus(Operation)
+#     def operate(self, left, right):
+#         return left - right
+
+# class Times(Operation)
+#     def operate(self, left, right):
+#         return left * right
+
+class AST(object):
+    def __init__(self, value=None, left=None, right=None):
+        self.value = value
+        self.left = left
+        self.right = right
+
+    def insert(self, n):
+        if type(n) == int:
+            self.value = n
+        else:
+            self.right = AST(self.value,self.left,self.right)
+            self.value = n[0]
+            self.left = AST(n[1])
+
+    def evaluate(self):
+        if type(self.value) == int:
+            return int(self.value)
+        return Operation(self.value).operate(evaluate(self.left), evaluate(self.right))
+
+class Graph(object):
+    def __init__(self, vertices=[], edges=[]):
+        self.vertices = vertices
+        self.edges = edges
+
+
+class Actors(Graph):
+    def __init__(self):
+        super(Actors, self)__init__()
+
+
+a = Actors(['actor1', 'actor2', 'actor3'], )
+
 
 
 # 4.2
