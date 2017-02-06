@@ -152,17 +152,25 @@ def split(s1, s2):
 # print split(((-2,4), 3), ((4,9), 5))
 
 # 16.14
-def best_line(points):
-    m = 1
-    best = (points[0][0], points[0][1], 0)
-    for i in points:
-        for j in points:
-            line = points
-            pass
+# def best_line(points):
+#     m = 1
+#     best = (points[0][0], points[0][1], 0)
+#     for i in points:
+#         for j in points:
+#             line = points
+#             pass
+
+# 16.15
+
+# 16.16
+
 
 # 16.24
 def pairs(l, n):
     p = []
     for i in l:
         m = n - i
-        for
+        for j in l:
+            if j == m:
+                p.append((i,j))
+    return p
