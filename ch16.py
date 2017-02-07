@@ -163,7 +163,32 @@ def split(s1, s2):
 # 16.15
 
 # 16.16
+def gl(a):
+    g,l = [], []
+    x = a[0]
+    for n in a:
+        if n > x:
+            x = n
+        g.append(x)
+    x = a[-1]
+    for n in a[::-1]:
+        if n < x:
+            x = n
+        l.append(x)
+    return g, l[::-1]
 
+def sub_sort(a):
+    g,l = gl(a)
+    for i in range(len(a)):
+        if a[i] != l[i]: break
+    left = i
+    for i in range(len(a) - 1, -1, -1):
+        if a[i] != g[i]: break
+    right = i
+    return left,right
+
+# a = [1, 2, 4, 7, 10, 11, 7, 12, 6, 7, 16, 18, 19]
+# print sub_sort(a)
 
 # 16.24
 def pairs(l, n):
