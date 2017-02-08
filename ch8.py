@@ -20,19 +20,51 @@ def fib(n, memo=[]):
 
     return memo[n]
 
+def fib(n, last=1, penult=0):
+    if n == 1:
+        return last + penult
+    return fib(n-1, last + penult, last)
+
 # sys.setrecursionlimit(1000000)
 # print fib(10000)
 
+# bottom-up methods
+def fib(n):
+    memo = [0]*(n+1)
+    for i in range(n + 1):
+        if i <= 2:
+            memo[i] = 1
+        else:
+            memo[i] = memo[i-1] + memo[i-2]
+    return memo[n]
+
+def fib(n):
+    if n in [1,2]:
+        return 1
+    a,b = 1,1
+    for i in range(n-2):
+        a,b = a+b,a
+    return a
+
 # 8.1
+# top-down
+def stair(n, prev_1=1, prev_2=0, prev_3=0):
+    if n == 1:
+        return prev_1 + prev_2 + prev_3
+    return stair(n - 1, prev_1 + prev_2 + prev_3, prev_1, prev_2)
+
+# bottom-up
 def stair(n):
     if n in [1,2]:
         return n
-    elif n == 3:
+    if n == 3:
         return 4
-    else:
-        return stair(n-1) + stair(n-2) + stair(n-3)
+    a,b,c = 4,2,1
+    for i in range(n-3):
+        a,b,c = a+b+c,a,b
+    return a
 
-# print stair(4)
+# print(stair(100000))
 
 # 8.2
 # assumes grid is a numpy array of 0's and 1's, with 1's being forbidden cells
@@ -174,6 +206,52 @@ def perm(s):
                 l.append(p[:i] + f + p[i:])
         return list(set(l))
 
-# print perm("ab")
-# print perm("abc")
-# print perm("aac")
+# print(perm("ab"))
+# print(perm("abc"))
+# print(perm("aac"))
+
+# 8.9
+def parens(n):
+    s = set()
+    if n == 1:
+        s.add("()")
+    else:
+        for i in parens(n-1):
+            s.add("()" + i)
+            s.add(i + "()")
+            s.add("(" + i + ")")
+    return s
+
+# print(parens(3))
+
+# 8.10
+def fill(a, p, color, old=None):
+    i,j = p[0], p[1]
+    if old is None:
+        old = a[i,j]
+    if a[i,j] != color and a[i,j] == old:
+        a[i,j] = color
+        if i > 0:
+            fill(a, [i-1,j], color, old)
+        if i < a.shape[0] - 1:
+            fill(a, [i+1,j], color, old)
+        if j > 0:
+            fill(a, [i,j-1], color, old)
+        if j < a.shape[0] - 1:
+            fill(a, [i,j+1], color, old)
+    return a
+
+# a = np.chararray((5, 5))
+# print(fill(a, (2,2), 'y'))
+
+# 8.11
+def coins(c, n=0, d=0, q=0):
+    if c < 5:
+        return [(c, n, d, q)]
+    l = []
+    if c < 10:
+        return coins(c-5,n+1,d,q) + coins(c,n,d,q)
+    if c < 25:
+        return coins(c-10,n,d+1,q) + coins(c-5,n+1,d,q) + coins(c,n,d,q)
+    return coins(c-25,n,d,q+1) + coins(c-10,n,d+1,q) + \
+           coins(c-5,n+1,d,q) + coins(c,n,d,q)
