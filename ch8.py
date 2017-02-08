@@ -245,13 +245,13 @@ def fill(a, p, color, old=None):
 # print(fill(a, (2,2), 'y'))
 
 # 8.11
-def coins(c, n=0, d=0, q=0):
-    if c < 5:
-        return [(c, n, d, q)]
-    l = []
-    if c < 10:
-        return coins(c-5,n+1,d,q) + coins(c,n,d,q)
-    if c < 25:
-        return coins(c-10,n,d+1,q) + coins(c-5,n+1,d,q) + coins(c,n,d,q)
-    return coins(c-25,n,d,q+1) + coins(c-10,n,d+1,q) + \
-           coins(c-5,n+1,d,q) + coins(c,n,d,q)
+# assumes we only have pennies, nickels, and dimes
+def dimes(n):
+    return n // 10 + 1
+
+# breaks it down into simpler problem
+def quarters(n):
+    total = 0
+    for i in range(n // 25 + 1):
+        total += dimes(n - 25 * i)
+    return total
