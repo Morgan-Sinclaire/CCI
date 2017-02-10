@@ -189,3 +189,50 @@ def successor(t, i=0):
     if t.left is not None:
         return successor(t.left, 1)
     return t.value
+
+
+
+
+# 4.8
+def common(t, a, b, a_below=False, b_below=False):
+    if t.value == a:
+        a_below = True
+    if t.value == b:
+        b_below = True
+
+    for b in [t.left, t.right]:
+        if b is not None:
+            s = common(b, a, b, a_below, b_below)
+            if type(s) == int:
+                return s
+            a_below += s[0]
+            b_below += s[1]
+
+    if (a_below, b_below) == (1,1):
+        return t.value
+    return (a_below, b_below)
+
+
+# 4.9
+def merge(a,b):
+    if len(a) == 0:
+        return [b]
+    if len(b) == 0:
+        return [a]
+
+    return [[a[0]] + x for x in merge(a[1:],b)] + \
+           [[b[0]] + x for x in merge(a,b[1:])]
+
+def sequence(t):
+    if t.left is None and t.right is None:
+        return [t.value]
+    if t.left is None:
+        return [t.value + x for x in sequence(t.right)]
+    if t.right is None:
+        return [t.value + x for x in sequence(t.left)]
+
+    l = []
+    for i in sequence(t.left):
+        for j in sequence(t.right):
+            l += merge(i,j)
+    return [t.value + x for x in l]
