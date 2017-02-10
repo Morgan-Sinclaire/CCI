@@ -29,6 +29,7 @@ def URLify(s, n):
 # 1.4
 # runs in O(mn), where n is the string length and m is the number of unique letters
 def permpal(s):
+    s = s.lower().replace(" ","")
     t = set(s)
     n = 0
     for c in t:
@@ -36,9 +37,13 @@ def permpal(s):
             n += 1
     return n <= 1
 
+# print(permpal("Tact Coe"))
+# print(permpal("Tact Coa"))
+
 # alternatively, this runs in O(nlogn) instead
 def permpal(s):
-    a = sorted("".join(s.split()))
+    s = s.lower().replace(" ","")
+    a = sorted(s)
     lengths = []
     count = 1
 
@@ -51,6 +56,9 @@ def permpal(s):
     lengths.append(count)
 
     return sum([i % 2 for i in lengths]) <= 1
+
+# print(permpal("Tact Coe"))
+# print(permpal("Tact Coa"))
 
 # 1.5
 # tests the cases of replacements separately from insertions/deletions
