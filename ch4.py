@@ -179,3 +179,13 @@ def validate(t, lower=None, upper=None):
 
 # t = binary_tree(5, binary_tree(8), binary_tree(6))
 # print validate(t)
+
+# 4.6
+def successor(t, i=0):
+    if not i:
+        t = t.right
+        return successor(t.right, 1)
+
+    if t.left is not None:
+        return successor(t.left, 1)
+    return t.value
