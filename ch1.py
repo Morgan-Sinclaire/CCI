@@ -1,17 +1,17 @@
 # 1.1
 def is_unique(s):
-    '''
-    with sets, O(n) is easy
-    '''
+    """With sets, O(n) is easy."""
     return len(list(s)) == len(set(s))
 
 # print(is_unique("abcdef"))
 # print(is_unique("abcdea"))
 
 def is_unique(s):
-    '''
-    without sets or anything else, sort the list and go through it in O(nlogn)
-    '''
+    """
+    Without sets or anything else, sort the list and go through it in
+    O(nlogn).
+    """
+
     s = sorted(s)
     for i in range(len(s) - 1):
         if s[i] == s[i+1]:
@@ -23,9 +23,7 @@ def is_unique(s):
 
 # 1.2
 def is_perm(a,b):
-    '''
-    sort both lists and check for equality in O(nlogn + mlogm)
-    '''
+    """Sort both lists and check for equality in O(nlogn + mlogm)."""
     return sorted(a) == sorted(b)
 
 # print(is_perm("tommarvoloriddle", "iamlordvoldemort"))
@@ -33,9 +31,7 @@ def is_perm(a,b):
 
 # 1.3
 def urlify(s, n):
-    '''
-    iterates through string and replaces spaces
-    '''
+    """Iterate through string and replace spaces."""
     end = 0
     for i in range(n):
         if s[i] != ' ':
@@ -48,9 +44,10 @@ def urlify(s, n):
 
 # 1.4
 def permpal(s):
-    '''
-    runs in O(mn), where n is the string length and m is the number of unique letters
-    '''
+    """
+    Run in O(mn), where n is the string length and m is the number of
+    unique letters.
+    """
     s = s.lower().replace(" ","")
     t = set(s)
     n = 0
@@ -63,9 +60,7 @@ def permpal(s):
 # print(permpal("Tact Coa"))
 
 def permpal(s):
-    '''
-    alternatively, this runs in O(nlogn) instead
-    '''
+    """Alternatively, run in O(nlogn) instead."""
     s = s.lower().replace(" ","")
     a = sorted(s)
     lengths = []
@@ -86,9 +81,11 @@ def permpal(s):
 
 # 1.5
 def one_away(a,b):
-    '''
-    tests the cases of replacements separately from insertions/deletions
-    '''
+    """
+    Test the cases of replacements separately from
+    insertions/deletions.
+    """
+
     d = len(a) - len(b)
     if d < 0:
         a,b = b,a
@@ -116,10 +113,11 @@ def one_away(a,b):
 
 # 1.6
 def compress(s):
-    '''
-    iterates through string, creating compressed list that becomes a string.
-    would have been simpler to create string directly, but runtime would be higher
-    '''
+    """
+    Iterate over string, making compressed list that becomes a string.
+    Would have been simpler to create string directly,
+    but runtime would be higher.
+    """
     lengths = []
     count = 1
 
@@ -143,9 +141,10 @@ def compress(s):
 # 1.7
 import numpy as np
 def rotate(A):
-    '''
-    for each entry in the upper left quadrant, swaps it with the 3 corresponding entries
-    '''
+    """
+    For each entry in the upper left quadrant, swap it with the 3
+    corresponding entries.
+    """
     n = A.shape[0]
     for i in range((n+1) // 2):
         for j in range(n // 2):
@@ -160,9 +159,7 @@ def rotate(A):
 # print(rotate(m))
 
 def rotate(A):
-    '''
-    transposes, then reflects across vertical middle
-    '''
+    """Transpose, then reflect across vertical middle."""
     A = A.T
     n = A.shape[0]
     for i in range(n):
@@ -177,9 +174,7 @@ def rotate(A):
 
 # 1.8
 def set_zero(A):
-    '''
-    marks rows and columns, then zeros them out
-    '''
+    """Marks rows and columns, then zeros them out."""
     m,n = A.shape
     rows,cols = [],[]
     for i in range(m):
@@ -205,10 +200,11 @@ def set_zero(A):
 
 # 1.9
 def is_rotation(s1,s2):
-    '''
-    can't think of a way to use isSubstring effectively, but this just seemed
-    like the way I'd do it, running in O(n) where n is the length of each string
-    '''
+    """
+    Can't think of a way to use isSubstring effectively, but this just
+    seemed like the way I'd do it, running in O(n) where n is the
+    length of each string.
+    """
     if len(s1) != len(s2):
         return False
     for i in range(len(s1)):
