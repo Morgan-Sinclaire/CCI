@@ -201,7 +201,7 @@ def set_zero(A):
 # 1.9
 def is_rotation(s1,s2):
     """
-    Can't think of a way to use isSubstring effectively, but this just
+    I can't think of a way to use isSubstring effectively, but this just
     seemed like the way I'd do it, running in O(n) where n is the
     length of each string.
     """

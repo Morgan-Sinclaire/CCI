@@ -1,9 +1,3 @@
-from ch2 import Node,LL
-
-# ll = LL()
-# ll.insert(5)
-# print ll
-
 class BinaryTree(object):
     def __init__(self, value=None, left=None, right=None):
         self.value = value
@@ -38,7 +32,9 @@ class BinaryTree(object):
 
 t = BinaryTree(4, None, None)
 
+
 class Operation(object):
+    """Evaluates an operation given its string representation."""
     def __init__(self, o):
         self.o = o
 
@@ -50,49 +46,34 @@ class Operation(object):
         if self.o == '*':
             return left * right
 
-# class Plus(Operation)
-#     def operate(self, left, right):
-#         return left + right
-
-# class Minus(Operation)
-#     def operate(self, left, right):
-#         return left - right
-
-# class Times(Operation)
-#     def operate(self, left, right):
-#         return left * right
-
 class AST(object):
-    def __init__(self, value=None, left=None, right=None):
+    """Implementation of an Abstract Syntax Tree."""
+    def __init__(self, value, left=None, right=None):
         self.value = value
         self.left = left
         self.right = right
 
     def insert(self, n):
-        if type(n) == int:
-            self.value = n
-        else:
-            self.right = AST(self.value,self.left,self.right)
-            self.value = n[0]
-            self.left = AST(n[1])
+        """Take in a tuple of the form (op, num)."""
+        self.left = AST(self.value,self.left,self.right)
+        self.value = n[0]
+        self.right = AST(n[1])
 
     def evaluate(self):
+        """Uses Operation class to recursively evaluate."""
         if type(self.value) == int:
             return int(self.value)
-        return Operation(self.value).operate(evaluate(self.left), evaluate(self.right))
+        return Operation(self.value).operate(self.left.evaluate(),
+                                             self.right.evaluate())
 
-class Graph(object):
-    def __init__(self, vertices=[], edges=[]):
-        self.vertices = vertices
-        self.edges = edges
-
-
-class Actors(Graph):
-    def __init__(self):
-        super(Actors, self)__init__()
-
-
-a = Actors(['actor1', 'actor2', 'actor3'], )
+# a = AST(5)
+# print(a.evaluate())
+# a.insert(('+', 3))
+# print(a.evaluate())
+# a.insert(('*', 2))
+# print(a.evaluate())
+# a.insert(('-', 9))
+# print(a.evaluate())
 
 
 
@@ -190,8 +171,23 @@ def successor(t, i=0):
         return successor(t.left, 1)
     return t.value
 
+# 4.7
+def order(projects, dependencies):
+    o = []
+    t = set(projects)
+    for d in dependencies:
+        t.remove(d[1])
 
+    while len(t) > 0:
+        p = t.pop()
+        o.append(p)
+        for d in dependencies:
+            if d[0] == p:
+                t.add(d[1])
 
+    if len(o) < len(projects):
+        return "Error"
+    return o
 
 # 4.8
 def common(t, a, b, a_below=False, b_below=False):
@@ -200,9 +196,9 @@ def common(t, a, b, a_below=False, b_below=False):
     if t.value == b:
         b_below = True
 
-    for b in [t.left, t.right]:
-        if b is not None:
-            s = common(b, a, b, a_below, b_below)
+    for branch in [t.left, t.right]:
+        if branch is not None:
+            s = common(branch, a, b, a_below, b_below)
             if type(s) == int:
                 return s
             a_below += s[0]
@@ -236,3 +232,44 @@ def sequence(t):
         for j in sequence(t.right):
             l += merge(i,j)
     return [t.value + x for x in l]
+
+# 4.10
+def same(t1, t2):
+    if t1 is None or t2 is None:
+        return t1 is None + t2 is None - 1
+
+    if t1.value != t2.value:
+        return False
+
+    return same(t1.left, t2.left) and same(t1.right, t2.right)
+
+def subtree(t1, t2):
+    if t1.value == t2.value:
+        if same(t1, t2):
+            return True
+
+    if t1.left is None and t2.left is None:
+        return False
+
+    if t1.left is None:
+        return subtree(t1.right, t2)
+
+    if t1.right is None:
+        return subtree(t1.left, t2)
+
+    return subtree(t1.left, t2) or subtree(t1.right, t2)
+
+
+# 4.12
+def path(t, n):
+    num = 0
+    if t.value == n:
+        num += 1
+
+    if t.left is not None:
+        num += path(t.left, n - t.value)
+
+    if t.right is not None:
+        num += path(t.right, n - t.value)
+
+    return num
