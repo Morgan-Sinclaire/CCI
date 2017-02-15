@@ -190,12 +190,42 @@ def sub_sort(a):
 # a = [1, 2, 4, 7, 10, 11, 7, 12, 6, 7, 16, 18, 19]
 # print sub_sort(a)
 
+# # 16.17
+# def contiguous(a):
+#     m = max(a)
+
+
+
+# 16.20
+def t9(n, words):
+    """
+    Maintain a list of viable words, filter them out at each digit.
+    Also, make sure word lengths are appropriate.
+    """
+    alpha = "abcdefghijklmnopqrstuvwxyz"
+    for i in range(len(str(n))):
+        d = int(str(n)[i])
+        if d == 1:
+            return []
+        elif d <= 6:
+            words = [w for w in words if w[i] in alpha[(d-2)*3:(d-1)*3]]
+        elif d == 7:
+            words = [w for w in words if w[i] in "pqrs"]
+        elif d == 8:
+            words = [w for w in words if w[i] in "tuv"]
+        elif d == 9:
+            words = [w for w in words if w[i] in "wxyz"]
+
+    return [w for w in words if len(w) == len(str(n))]
+
+print(t9(8733, ["tree", "trees", "used", "note", "wall", "rain"]))
+
 # 16.24
-def pairs(l, n):
-    p = []
-    for i in l:
-        m = n - i
-        for j in l:
-            if j == m:
-                p.append((i,j))
-    return p
+# def pairs(l, n):
+#     p = []
+#     for i in l:
+#         m = n - i
+#         for j in l:
+#             if j == m:
+#                 p.append((i,j))
+#     return p
