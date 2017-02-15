@@ -194,7 +194,60 @@ def sub_sort(a):
 # def contiguous(a):
 #     m = max(a)
 
+# 16.19
+def near(entry, m, n):
+    """For a given entry in a matrix, return all entries around it."""
+    i,j = entry
+    listy = [(a,b) for a in range(i-1,i+2) for b in range(j-1,j+2)]
+    listy = [(a,b) for (a,b) in listy if a >= 0 and a < m and b >= 0 and b < n]
+    listy.remove((i,j))
+    return listy
 
+def pond(A):
+    """
+    Find entries marked 0, put them in a set. Pick one, put all
+    entries in the same pond in a set, find length of that set. Remove
+    those from original set, repeat process with other ponds until set
+    is depleted.
+    """
+    m,n = A.shape
+    # Construct set of all 0 entries
+    s = set()
+    for i in range(m):
+        for j in range(n):
+            if A[i,j] == 0:
+                s.add((i,j))
+
+    sizes = []
+    while s != set():
+        # Set of entries whose neighbors we haven't seen
+        unchecked = set([s.pop()])
+        # Set of entries whose neighbors we have seen
+        pond = set()
+        while unchecked != set():
+            # Check neighbors around a given entry
+            cur = unchecked.pop()
+            for entry in near(cur, m, n):
+                if entry in s:
+                    unchecked.add(entry)
+                    s.remove(entry)
+            pond.add(cur)
+        # Found all points in pond, now append size.
+        sizes.append(len(pond))
+
+    return sizes
+
+# A = np.array([[0, 2, 1, 0],
+#               [0, 1, 0, 1],
+#               [1, 1, 0, 1],
+#               [0, 1, 0, 1]])
+# print(pond(A))
+
+# A = np.array([[0, 0, 1, 0],
+#               [0, 0, 0, 1],
+#               [1, 1, 0, 1],
+#               [0, 1, 0, 1]])
+# print(pond(A))
 
 # 16.20
 def t9(n, words):
