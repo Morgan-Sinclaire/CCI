@@ -1,3 +1,6 @@
+import numpy as np
+from collections import Counter,defaultdict
+
 # 16.1
 # I assume this is asking to reverse the digits of the number
 def swap(n):
@@ -191,8 +194,29 @@ def sub_sort(a):
 # print sub_sort(a)
 
 # # 16.17
-# def contiguous(a):
-#     m = max(a)
+def contiguous(a):
+    """
+    Given a list of numbers a, find the contiguous subsequence with
+    the largest sum, and return that sum.
+    We only run through the list once, premised on the observation that
+    once our running count is negative, this entire first piece of the
+    list can be ignored for any maximal sequences ending subsequently.
+    Yet, if the running count is still positive, any subsequent maximal
+    sequence starting there must include it.
+    """
+    m = a[0]
+    n = 0
+    for i in range(len(a)):
+        n += a[i]
+        if n > m:
+            m = n
+        if n <= 0:
+            n = 0
+    return m
+
+# print(contiguous([2, -8, 3, -2, 4, -10]))
+# print(contiguous([8, 5, -7, 2, -3, 2, -5, -9, -2, 10, \
+                  # -8, -2, -6, -2, 10, 0, 8, -4, 4, -4]))
 
 # 16.18
 def solutions(n, coefs):
@@ -249,6 +273,10 @@ def check_sol(pattern, value, sol):
             return False
     return True
 
+# pattern = "bbbabaa"
+# value = "catcatcatgocatgogo"
+# print(check_sol(pattern, value, {'a': 2, 'b': 3}))
+# print(check_sol(pattern, value, {'a': 3, 'b': 2}))
 
 def match(pattern, value):
     """
@@ -268,6 +296,12 @@ def match(pattern, value):
         if check_sol(pattern, value, sol):
             return True
     return False
+
+# pattern = "bbbabaa"
+# value = "catcatcatgocatgogo"
+# print(match(pattern, value))
+# value = "catcatcargocatgogo"
+# print(match(pattern, value))
 
 # 16.19
 def near(entry, m, n):
