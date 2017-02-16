@@ -194,6 +194,81 @@ def sub_sort(a):
 # def contiguous(a):
 #     m = max(a)
 
+# 16.18
+def solutions(n, coefs):
+    """
+    Given a number n, and a list of coefficients, returns all solutions
+    to the corresponding linear diophantine equation.
+    For instance, solutions(13, [3,2]) returns all solutions [a,b] to
+    3a + 2b = 13, which would be [1,5] and [3,2].
+    """
+    if len(coefs) == 1:
+        if n % coefs[0] == 0:
+            return [[n // coefs[0]]]
+        else:
+            return []
+    sol = []
+    for i in range(0, (n // coefs[0]) + 1):
+        for listy in solutions(n - i*coefs[0], coefs[1:]):
+            sol.append([i] + listy)
+    return sol
+
+# print(solutions(15, [3,2]))
+# for s in solutions(100, [5, 8, 9]):
+#     print(5*s[0] + 8*s[1] + 9*s[2])
+
+def check_sol(pattern, value, sol):
+    """
+    Given a pattern, value, and proposed solution for the value to
+    match the pattern, verify this solution. This is given as a dict
+    of the form e.g. {'b': 3, 'a': 2}, where these represent the number
+    of characters in that segment of the pattern.
+    """
+    # create a list of the length of the pattern, where each number is
+    # the length of the corresponding segment in the value
+    cnts = [sol[c] for c in pattern]
+
+    # create a list of words from value that should map to the pattern
+    words = []
+    i = 0
+    for count in cnts:
+        words.append(value[i:i+count])
+        i += count
+
+    # create a dictionary indicating the set of substrings mapping to
+    # each element of the pattern
+    d = defaultdict()
+    for i in range(len(pattern)):
+        d[pattern[i]] = set()
+    for i in range(len(pattern)):
+        d[pattern[i]].add(words[i])
+
+    # there should not be different substrings for a single element
+    for s in d.values():
+        if len(s) > 1:
+            return False
+    return True
+
+
+def match(pattern, value):
+    """
+    Given a pattern, e.g. "bbbabaa", and a value, e.g. "catcatcatgocatgogo",
+    return whether the value matches this pattern.
+    """
+    # count up the characters in the pattern, make a list of tuples
+    counter = list(Counter(pattern).items())
+
+    # find possible character counts of pattern pieces
+    sols = solutions(len(value), [x[1] for x in counter])
+
+    for sol in sols:
+        # create a dict of the form e.g. {'b': 3, 'a': 2}, where these
+        # represent the number of characters in that segment of the pattern
+        sol = dict([(counter[i][0], sol[i]) for i in range(len(sol))])
+        if check_sol(pattern, value, sol):
+            return True
+    return False
+
 # 16.19
 def near(entry, m, n):
     """For a given entry in a matrix, return all entries around it."""
