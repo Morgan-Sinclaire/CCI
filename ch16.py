@@ -380,7 +380,7 @@ def t9(n, words):
 
     return [w for w in words if len(w) == len(str(n))]
 
-print(t9(8733, ["tree", "trees", "used", "note", "wall", "rain"]))
+# print(t9(8733, ["tree", "trees", "used", "note", "wall", "rain"]))
 
 # 16.24
 # def pairs(l, n):
