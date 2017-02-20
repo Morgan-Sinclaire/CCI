@@ -1,4 +1,5 @@
-class BinaryTree(object):
+class BST(object):
+    """Implement a Binary Search Tree."""
     def __init__(self, value=None, left=None, right=None):
         self.value = value
         self.left = left
@@ -9,12 +10,12 @@ class BinaryTree(object):
             self.value = n
         elif n <= self.value:
             if self.left == None:
-                self.left = BinaryTree(n)
+                self.left = BST(n)
             else:
                 self.left.insert(n)
         elif n > self.value:
             if self.right == None:
-                self.right = BinaryTree(n)
+                self.right = BST(n)
             else:
                 self.right.insert(n)
 
@@ -30,7 +31,67 @@ class BinaryTree(object):
                 return False
             return self.right.find(n)
 
-t = BinaryTree(4, None, None)
+# t = BST(5)
+# t.insert(4)
+# t.insert(8)
+# t.insert(3)
+# t.insert(9)
+# t.insert(6)
+# t.insert(7)
+# t.insert(1)
+# t.insert(2)
+
+
+
+
+
+class BinaryTree(object):
+    """Basic vanilla binary tree implementation."""
+    def __init__(self, value=None, left=None, right=None):
+        self.value = value
+        self.left = left
+        self.right = right
+
+def serialize(t):
+    """Given a BinaryTree, represent it as a string."""
+    if t.left is None and t.right is None:
+        return str(t.value)
+    if t.left is None:
+        return str(t.value) + "(" + serialize(t.right) + ")"
+    if t.right is None:
+        return "(" + serialize(t.left) + ")" + str(t.value)
+    return "(" + serialize(t.left) + ")" + str(t.value) + \
+           "(" + serialize(t.right) + ")"
+
+def deserialize(s):
+    """Given a string, build its corresponding BinaryTree."""
+    if len(s) == 1:             # We just get a number
+        return BinaryTree(s)
+    if s[0] not in "() ":       # Root value out in front
+        return BinaryTree(s[0], right=deserialize(s[2:-1]))
+    if s[-1] not in "() ":
+        return BinaryTree(s[-1], left=deserialize(s[1:-2]))
+    count = 1
+    for i in range(1,len(s)):   # Locate root if in middle
+        if s[i] == "(":
+            count += 1
+        if s[i] == ")":
+            count -= 1
+        if count == 0:
+            i += 1
+            break
+    return BinaryTree(s[i], deserialize(s[1:i-1]), deserialize(s[i+2:-1]))
+
+# t = BinaryTree(2)
+# t = BinaryTree(1, t)
+# t = BinaryTree(3, t)
+# t = BinaryTree(4, right=t)
+# t = BinaryTree(5, t)
+# t.right = BinaryTree(8, BinaryTree(6, BinaryTree(7)), BinaryTree(9))
+
+# print(serialize(t))
+# a = deserialize(serialize(t))
+# print(serialize(t) == serialize(a))
 
 
 class Operation(object):
