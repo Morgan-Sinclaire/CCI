@@ -1,3 +1,5 @@
+from collections import deque
+
 class BST(object):
     """Implement a Binary Search Tree."""
     def __init__(self, value=None, left=None, right=None):
@@ -40,9 +42,6 @@ class BST(object):
 # t.insert(7)
 # t.insert(1)
 # t.insert(2)
-
-
-
 
 
 class BinaryTree(object):
@@ -136,7 +135,50 @@ class AST(object):
 # a.insert(('-', 9))
 # print(a.evaluate())
 
+class Node(object):
+    def __init__(self, friends=None):
+        if friends is None:
+            self.friends = []
+        else:
+            self.friends = friends
 
+    def link(self, other):
+        self.friends.append(other)
+        other.friends.append(self)
+
+    def links(self, others):
+        for f in others:
+            self.link(f)
+
+    def bfs(self, other, s, q, d):
+        L = list(q)
+        for cur in L:
+            q.popleft()
+            for f in cur.friends:
+                if f not in s:
+                    s.add(f)
+                    q.append(f)
+                    if f is other:
+                        return d
+        if q:
+            return self.bfs(other, s, q, d+1)
+        return None
+
+    def distance(self, other):
+        if self is other:
+            return 0
+        return self.bfs(other, s={self}, q=deque([self]), d=1)
+
+# a, b, c, d, e, f, g, h, i, j = [Node() for i in range(10)]
+#
+# a.links([b,c,d])
+# b.links([e,f])
+# f.links([i])
+# d.links([g,h])
+# g.links([j])
+#
+# for n in a, b, c, d, e, f, g, h, i, j:
+#     print(a.distance(n))
 
 # 4.2
 def minimal(a):
